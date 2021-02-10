@@ -10,11 +10,11 @@ import (
 	gorm.Model
 	Username	string
 	Password	uint
-	Posts		[]Post
+	Articles	[]Article
 	Comments 	[]Comment
   }
 
-  type Post struct {
+  type Article struct {
 	gorm.Model
 	UserId		uint
 	User		User
@@ -27,8 +27,8 @@ import (
 	gorm.Model
 	UserId		uint
 	User		User
-	PostId		uint
-	Post		Post
+	ArticleId	uint
+	Article		Article
 	Content		string
   }
 
