@@ -106,6 +106,7 @@ Looking for help? Check out the [instructions for getting support [dead link]](#
 
 # Built With
 * [Golang](https://golang.org/) - Open source programming language
+* [GORM](https://gorm.io/index.html) - "The fantastic ORM library for Golang"
 
 # Team Members
 * **Quentin Maillard** - [Tichyus](https://github.com/Tichyus)
