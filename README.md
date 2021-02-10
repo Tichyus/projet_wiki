@@ -49,6 +49,10 @@ As defined by the teacher, the raw features intended are (at least):
 * edit an article
 * comment an article
 
+Other evaluation criterias are:
+* clean API documentation
+* clean git repo management
+
 # Current Features
 * none
 
