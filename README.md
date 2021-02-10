@@ -3,7 +3,7 @@ Flamin.go
 #### ***Golang & Json - Blog API***
 The aim of the project is to create an easy to use, lightweight library with a ... . The library also provides ... .
 
-For more information on using Flamin.go, see the [Flamin.go Documentation](DOCUMENTATION.MD).
+For more information on using Flamin.go, see the [Flamin.go Documentation [dead link]](DOCUMENTATION.MD).
 
 # Project Status
 *This repo is a [HETIC school](https://www.hetic.net/) project and its purpose is purely educational.* 
