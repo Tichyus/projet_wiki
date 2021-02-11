@@ -1,3 +1,11 @@
+<p align="center"> 
+<img
+      alt="Flamin.go"
+      src="https://i.imgur.com/jOiyrFQ.png "Flamin.Go logo"
+      width="400"
+    />
+</p>
+                 
 Flamin.go
 ====
 #### ***Golang & Json - Blog API***
