@@ -21,14 +21,11 @@ For more information on using Flamin.go, see the [Flamin.go Documentation](https
 # Table of Contents
 * [Project Status](#project-status)
 * [Overview](#overview)
-* [Current Features](#current-features)
 * [Project Demo](#project-demo)
 * [Getting Started](#getting-started)
     * [Requirements](#requirements)
     * [Installation](#installation)
     * [Quick Start](#quick-start)
-    * [Usage Examples](#usage-examples)
-        * [Sending and receiving text data](#sending-and-receiving-text-data)
     * [Deployment](#deployment)
 * [Documentation](#documentation)
 * [Support](#support)
@@ -61,9 +58,6 @@ Other evaluation criterias are:
 * clean API documentation
 * clean git repo management
 
-# Current Features
-* none
-
 # Project Demo
 *No demo available at the moment.*
 
@@ -87,12 +81,6 @@ Congratulations.
 
 Now get to [url [dead link]](#). If everything went well you should see [this [dead link]](#).
 
-# Usage Examples
-## Sending and receiving text data
-```golang
-
-```
-If everything went well you should see [this [dead link]](#).
 
 # Deployment
 *Add additional notes about how to deploy this on a live system.*
@@ -105,13 +93,6 @@ If everything went well you should see [this [dead link]](#).
 
 # Documentation
 See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file for documentation of classes and utility functions.
-
-# Support
-Looking for help? Check out the [instructions for getting support](https://letmegooglethat.com/?q=What+to+do+when+there+is+no+support+team+%3F).
-
-# Roadmap
-- [x] step 1
-- [ ] step 2
 
 # Known Issues
 - none
