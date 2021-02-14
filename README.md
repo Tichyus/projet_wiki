@@ -108,6 +108,7 @@ See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file f
 * **Corentin Boulanouar** - [Shawnuke](https://github.com/Shawnuke)
 
 # Acknowledgments
+* Aiming to build a clear and well-structured documentation, the [Stripe API Documentation](https://stripe.com/docs/api) has been a huge reference for us.
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
