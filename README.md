@@ -19,22 +19,23 @@ For more information on using Flamin.go, see the [Flamin.go Documentation](https
 *Feel free to fork the project, but be aware that development might slow down or stop completely at any time, and that we are not looking for maintainers or owner.*
 
 # Table of Contents
-* [Project Status](#project-status)
-* [Overview](#overview)
-* [Project Demo](#project-demo)
-* [Getting Started](#getting-started)
-    * [Requirements](#requirements)
-    * [Installation](#installation)
-    * [Quick Start](#quick-start)
-    * [Deployment](#deployment)
-* [Documentation](#documentation)
-* [Support](#support)
-* [Roadmap](#roadmap)
-* [Known Issues](#known-issues)
-* [Built With](#built-with)
-* [Team Members](#team-members)
-* [Acknoledgments](#acknowledgments)
-* [License](#license)
+- [Flamin.go](#flamingo)
+      - [***Golang & Json - Blog API***](#golang--json---blog-api)
+- [Project Status](#project-status)
+- [Table of Contents](#table-of-contents)
+- [Overview](#overview)
+- [Project Demo](#project-demo)
+- [Getting Started](#getting-started)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+- [Deployment](#deployment)
+- [Documentation](#documentation)
+- [Known Issues](#known-issues)
+- [Built With](#built-with)
+- [Team Members](#team-members)
+- [Acknowledgments](#acknowledgments)
+- [License](#license)
 
 # Overview
 This project should be carried out according to the following guidelines:
@@ -100,6 +101,7 @@ See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file f
 # Built With
 * [Golang](https://golang.org/) - Open source programming language
 * [GORM](https://gorm.io/index.html) - "The fantastic ORM library for Golang"
+* [Mux](https://github.com/gorilla/mux) - "A powerful HTTP router and URL matcher for building Go web servers"
 
 # Team Members
 * **Quentin Maillard** - [Tichyus](https://github.com/Tichyus)
