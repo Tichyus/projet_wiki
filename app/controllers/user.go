@@ -2,17 +2,10 @@ package controllers
 
 import (
 	"gorm.io/gorm"
-	"gorm.io/driver/mysql"
 	"github.com/gorilla/mux"
 )
 
 func ReadUser(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
     vars := mux.Vars(r)
 	id := vars["id"]
     var user User
@@ -22,12 +15,6 @@ func ReadUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
     vars := mux.Vars(r)
     username := vars["username"]
 
@@ -35,13 +22,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
     id := vars["id"]
 
     var user User
@@ -50,13 +31,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("sqlite3", "test.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
 	id := vars["id"]
     username := vars["username"]
 

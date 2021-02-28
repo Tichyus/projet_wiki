@@ -2,30 +2,17 @@ package controllers
 
 import (
 	"gorm.io/gorm"
-	"gorm.io/driver/mysql"
 	"github.com/gorilla/mux"
 )
 
 func AllArticles(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    var articles []Article
+	var articles []Article
     db.Find(&articles)
 
     json.NewEncoder(w).Encode(articles)
 }
 
 func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
 	vars := mux.Vars(r)
 	id := vars["id"]
     var articles []Article
@@ -36,13 +23,7 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReadArticle(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
 	id := vars["id"]
     var article Article
     db.Where("id = ?", id).Find(&article)
@@ -51,13 +32,7 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateArticle(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
     title := vars["title"]
     content := vars["content"]
 	user := vars["user"]
@@ -66,13 +41,7 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteArticle(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
     id := vars["id"]
 
     var article Article
@@ -81,13 +50,7 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateArticle(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("sqlite3", "test.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
 	id := vars["id"]
     title := vars["title"]
     content := vars["content"]

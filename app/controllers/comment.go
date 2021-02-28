@@ -2,17 +2,10 @@ package controllers
 
 import (
 	"gorm.io/gorm"
-	"gorm.io/driver/mysql"
 	"github.com/gorilla/mux"
 )
 
 func AllCommentsFromArticle(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
 	vars := mux.Vars(r)
 	id := vars["id"]
     var comments []Comment
@@ -23,13 +16,7 @@ func AllCommentsFromArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReadComment(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
 	id := vars["id"]
     var comment Comment
     db.Where("id = ?", id).Find(&comment)
@@ -38,13 +25,7 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateComment(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
     content := vars["content"]
 	user := vars["user"]
 
@@ -52,13 +33,7 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteComment(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("mysql", "flamingo.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
     id := vars["id"]
 
     var comment Comment
@@ -67,13 +42,7 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateComment(w http.ResponseWriter, r *http.Request) {
-    db, err := gorm.Open("sqlite3", "test.db")
-    if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
-
-    vars := mux.Vars(r)
+	vars := mux.Vars(r)
 	id := vars["id"]
     content := vars["content"]
 
