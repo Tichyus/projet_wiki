@@ -6,21 +6,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func AllCommentsFromArticle(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-    var comments []Comment
-	var comment []Comment
-	db.Where(&Comment{article.id: id}, "article.id").Find(&comments)
-
-    json.NewEncoder(w).Encode(comments)
-}
-
 func ReadComment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	ID := vars["ID"]
     var comment Comment
-    db.Where("id = ?", id).Find(&comment)
+    db.Where("ID = ?", ID).Find(&comment)
 
     json.NewEncoder(w).Encode(comment)
 }
@@ -28,27 +18,31 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 func CreateComment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
     content := vars["content"]
-	user := vars["user"]
+	user_ID := vars["user"]
+	article_ID := vars["user"]
 
+	var user User
+	var article Article
+    db.Where("ID = ?", ID).Find(&comment)
     db.Create(&Comment{Content: content})
 }
 
 func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-    id := vars["id"]
+    ID := vars["ID"]
 
     var comment Comment
-    db.Where("id = ?", id).Find(&comment)
+    db.Where("ID = ?", ID).Find(&comment)
     db.Delete(&comment)
 }
 
 func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	ID := vars["ID"]
     content := vars["content"]
 
     var comment Comment
-    db.Where("id = ?", id).Find(&comment)
+    db.Where("ID = ?", ID).Find(&comment)
 
     comment.Content = content
 

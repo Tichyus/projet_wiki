@@ -1,9 +1,12 @@
 package main
 
 import (
-	"gorm.io/gorm"
-	"gorm.io/driver/mysql"
+	"log"
+	"net/http"
+
 	"github.com/gorilla/mux"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func handleRequests() {
@@ -23,6 +26,7 @@ func handleRequests() {
 	myRouter.HandleFunc("/article/{id}", ReadArticle).Methods("GET")
 	myRouter.HandleFunc("/articles", AllArticles).Methods("GET")
 	myRouter.HandleFunc("/articles/{id}", AllArticlesFromUser).Methods("GET")
+	myRouter.HandleFunc("/article/{id}/comments", ReadComments).Methods("GET")
 	myRouter.HandleFunc("/article/update/{id}/{title}/{content}", UpdateArticle).Methods("PUT")
 	myRouter.HandleFunc("/article/delete/{id}", DeleteArticle).Methods("DELETE")
 
@@ -31,12 +35,12 @@ func handleRequests() {
 
 func main() {
 	// connect to database
-	dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "user:pass@tcp(127.0.0.1:3306)/flamingo?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-        panic("failed to connect database")
-    }
-    defer db.Close()
+		panic("failed to connect database")
+	}
+	defer db.Close()
 
 	handleRequests()
 }
