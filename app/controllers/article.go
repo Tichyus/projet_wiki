@@ -2,12 +2,14 @@ package controllers
 
 import (
 	"encoding/json"
+	"flamingo/database"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 func AllArticles(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	var articles []Article
 	db.Find(&articles)
 
@@ -15,6 +17,7 @@ func AllArticles(w http.ResponseWriter, r *http.Request) {
 }
 
 func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 	var articles []Article
@@ -25,6 +28,7 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReadComments(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 	var articles []Article
@@ -36,6 +40,7 @@ func ReadComments(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReadArticle(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 	var article Article
@@ -45,6 +50,7 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateArticle(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	vars := mux.Vars(r)
 	title := vars["title"]
 	content := vars["content"]
@@ -54,6 +60,7 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteArticle(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 
@@ -63,6 +70,7 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateArticle(w http.ResponseWriter, r *http.Request) {
+	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 	title := vars["title"]
