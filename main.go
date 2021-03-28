@@ -1,5 +1,6 @@
 package main
 
+
 import (
 	"projet_wiki/router"
 	"log"
@@ -9,7 +10,7 @@ import (
 const dwldPath = "./tmp"
 
 func main() {
-    //We define a port, create a router powered by mux and serve it
+
 	port := "8080"
 	newRouter := router.NewRouter()
 
