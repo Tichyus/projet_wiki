@@ -1,35 +1,24 @@
 package main
 
-import "net/http"
-import "projet_wiki/Controllers/user.go"
 
+import (
+	"projet_wiki/router"
+	"log"
+	"net/http"
+)
+
+const dwldPath = "./tmp"
 
 func main() {
-	fs := http.FileServer(http.Dir("./views"))
-	http.Handle("/*", fs)
 
-	http.HandleFunc("/", spaHandler);
+	port := "8080"
+	newRouter := router.NewRouter()
 
-	http.ListenAndServe(":8080", nil)
+	log.Print("\nServer started on port " + port)
 
-	Controllers.UserHandler()
+	newRouter.PathPrefix("/files/").Handler(http.StripPrefix("/files/",
+		http.FileServer(http.Dir(dwldPath))))
 
+    http.ListenAndServe(":"+port, newRouter)
+	
 }
-
-
-func spaHandler(responseWriter http.ResponseWriter, request *http.Request) {
-	http.ServeFile(responseWriter, request, "./views")
-}
-
-// package main
-
-// import (
-// 	"gorm.io/gorm"
-// 	"gorm.io/driver/mysql"
-// )
-
-// func main() {
-// 	// connect to database
-// 	dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-// 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-// }
