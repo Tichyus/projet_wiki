@@ -3,6 +3,7 @@ module projet_wiki
 go 1.15
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gobuffalo/packr/v2 v2.8.1
 	github.com/gorilla/mux v1.8.0
@@ -20,6 +21,6 @@ require (
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
-	gorm.io/driver/mysql v1.0.5
+	gorm.io/driver/sqlite v1.1.4 // indirect
 	gorm.io/gorm v1.21.6
 )
