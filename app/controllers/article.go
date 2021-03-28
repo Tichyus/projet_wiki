@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"flamingo/database"
+	"flamingo/models"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -10,7 +11,7 @@ import (
 
 func AllArticles(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	var articles []Article
+	var articles []models.Article
 	db.Find(&articles)
 
 	json.NewEncoder(w).Encode(articles)
@@ -20,9 +21,8 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
-	var articles []Article
-	var article []Article
-	db.Where(&Article{author.ID: ID}, "author.ID").Find(&articles)
+	var articles []models.Article
+	db.Where(&models.Article{author.ID: ID}, "author.ID").Find(&articles)
 
 	json.NewEncoder(w).Encode(articles)
 }
@@ -31,10 +31,9 @@ func ReadComments(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
-	var articles []Article
-	var article []Article
+	var article models.Article
 
-	comments := db.Where(&Article{ID: ID}, "ID").Find(&article).Association("Comments").Find(&comments)
+	comments := db.Where(&models.Article{ID: ID}, "ID").Find(&article).Association("Comments").Find(models.Comment)
 
 	json.NewEncoder(w).Encode(comments)
 }
@@ -43,7 +42,7 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
 	ID := vars["ID"]
-	var article Article
+	var article models.Article
 	db.Where("ID = ?", ID).Find(&article)
 
 	json.NewEncoder(w).Encode(article)
@@ -56,7 +55,7 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 	content := vars["content"]
 	user := vars["user"]
 
-	db.Create(&Article{Title: title, Content: content})
+	db.Create(&models.Article{Title: title, Content: content, User: user})
 }
 
 func DeleteArticle(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +63,7 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 
-	var article Article
+	var article models.Article
 	db.Where("ID = ?", ID).Find(&article)
 	db.Delete(&article)
 }
@@ -76,7 +75,7 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	title := vars["title"]
 	content := vars["content"]
 
-	var article Article
+	var article models.Article
 	db.Where("ID = ?", ID).Find(&article)
 
 	article.Title = title
