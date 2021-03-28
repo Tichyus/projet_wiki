@@ -1,12 +1,23 @@
 package main
 
 import (
-	"gorm.io/gorm"
-	"gorm.io/driver/mysql"
+	"projet_wiki/router"
+	"log"
+	"net/http"
 )
 
+const dwldPath = "./tmp"
+
 func main() {
-	// connect to database
-	dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+    //We define a port, create a router powered by mux and serve it
+	port := "8080"
+	newRouter := router.NewRouter()
+
+	log.Print("\nServer started on port " + port)
+
+	newRouter.PathPrefix("/files/").Handler(http.StripPrefix("/files/",
+		http.FileServer(http.Dir(dwldPath))))
+
+    http.ListenAndServe(":"+port, newRouter)
+	
 }
