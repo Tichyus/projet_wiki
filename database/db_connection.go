@@ -26,7 +26,7 @@ func Connect() error {
 
 	DbConn = db
 
-	db.AutoMigrate(&models.User{}, &models.Product{}, &models.Order{})
+	db.AutoMigrate(&models.User{}, &models.Article{}, &models.Comment{})
 
 	return nil
 }
