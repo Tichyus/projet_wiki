@@ -3,34 +3,21 @@ package main
 import (
 	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
+	"projet_wiki/router"
 )
 
-func handleRequests() {
-	myRouter := mux.NewRouter().StrictSlash(true)
-
-	myRouter.HandleFunc("/user/create/{username}", CreateUser).Methods("POST")
-	myRouter.HandleFunc("/user/{id}", ReadUser).Methods("GET")
-	myRouter.HandleFunc("/user/update/{id}/{username}", UpdateUser).Methods("PUT")
-	myRouter.HandleFunc("/user/delete/{id}", DeleteUser).Methods("DELETE")
-
-	myRouter.HandleFunc("/comment/create/{content}", CreateComment).Methods("POST")
-	myRouter.HandleFunc("/comment/{id}", ReadComment).Methods("GET")
-	myRouter.HandleFunc("/comment/update/{id}/{content}", UpdateComment).Methods("PUT")
-	myRouter.HandleFunc("/comment/delete/{id}", DeleteComment).Methods("DELETE")
-
-	myRouter.HandleFunc("/article/create/{title}/{content}", CreateArticle).Methods("POST")
-	myRouter.HandleFunc("/article/{id}", ReadArticle).Methods("GET")
-	myRouter.HandleFunc("/articles", AllArticles).Methods("GET")
-	myRouter.HandleFunc("/articles/{id}", AllArticlesFromUser).Methods("GET")
-	myRouter.HandleFunc("/article/{id}/comments", ReadComments).Methods("GET")
-	myRouter.HandleFunc("/article/update/{id}/{title}/{content}", UpdateArticle).Methods("PUT")
-	myRouter.HandleFunc("/article/delete/{id}", DeleteArticle).Methods("DELETE")
-
-	log.Fatal(http.ListenAndServe(":8081", myRouter))
-}
+const dwldPath = "./tmp"
 
 func main() {
-	handleRequests()
+
+	port := "8080"
+	newRouter := router.NewRouter()
+
+	log.Print("\nServer started on port " + port)
+
+	newRouter.PathPrefix("/files/").Handler(http.StripPrefix("/files/",
+		http.FileServer(http.Dir(dwldPath))))
+
+	http.ListenAndServe(":"+port, newRouter)
+
 }
