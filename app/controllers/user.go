@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"encoding/json"
-	"flamingo/database"
-	"flamingo/models"
 	"net/http"
+
+	"projet_wiki/database"
+	"projet_wiki/models"
 
 	"github.com/gorilla/mux"
 )

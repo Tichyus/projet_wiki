@@ -1,6 +1,8 @@
 package database
 
 import (
+	"projet_wiki/models"
+
 	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -23,6 +25,8 @@ func Connect() error {
 	}
 
 	DbConn = db
+
+	db.AutoMigrate(&models.User{}, &models.Product{}, &models.Order{})
 
 	return nil
 }
