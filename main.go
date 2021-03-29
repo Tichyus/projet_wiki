@@ -28,9 +28,8 @@ func main() {
 	log.Print("\nServer started on port " + port)
 
 	newRouter.PathPrefix("/files/").Handler(http.StripPrefix("/files/",
-		http.FileServer(http.Dir(dwldPath))))
+	http.FileServer(http.Dir(dwldPath))))
 
 	http.ListenAndServe(":"+port, newRouter)
-
 }
 
