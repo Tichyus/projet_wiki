@@ -10,16 +10,24 @@ import (
 	"github.com/gorilla/mux"
 )
 
+/**
+* Returns an specific user
+* Required arguments: string ID
+ */
 func ReadUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	ID := vars["ID"]
+	id := vars["ID"]
 	var user models.User
-	db.Where("ID = ?", ID).Find(&user)
+	db.Where("ID = ?", id).Find(&user)
 
 	json.NewEncoder(w).Encode(user)
 }
 
+/**
+* Creates an user
+* Required arguments: string username
+ */
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
@@ -28,24 +36,32 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	db.Create(&models.User{Username: username})
 }
 
+/**
+* Deletes an user
+* Required arguments: string ID
+ */
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	ID := vars["ID"]
+	id := vars["ID"]
 
 	var user models.User
-	db.Where("ID = ?", ID).Find(&user)
+	db.Where("ID = ?", id).Find(&user)
 	db.Delete(&user)
 }
 
+/**
+* Updates an user
+* Required arguments: string ID, string username
+ */
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	ID := vars["ID"]
+	id := vars["ID"]
 	username := vars["username"]
 
 	var user models.User
-	db.Where("ID = ?", ID).Find(&user)
+	db.Where("ID = ?", id).Find(&user)
 
 	user.Username = username
 

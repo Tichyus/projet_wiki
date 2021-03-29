@@ -26,6 +26,7 @@ func Connect() error {
 
 	DbConn = db
 
+	// Creates the tables, missing foreign keys, constraints, columns and indexes for the specified models
 	db.AutoMigrate(&models.User{}, &models.Article{}, &models.Comment{})
 
 	return nil
