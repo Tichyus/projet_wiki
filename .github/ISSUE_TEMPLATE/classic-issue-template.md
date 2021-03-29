@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-🗒 Détails : 
+🗒 Details : 
 
 
 ☑️ Todo:
 - [ ] 
 - [ ]
 
-📕 Ressources : 
+📕 Resources : 
 - 
 -
 -
