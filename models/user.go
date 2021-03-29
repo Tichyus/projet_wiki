@@ -7,7 +7,7 @@ import (
 type User struct {
 	gorm.Model
 	Username string
-	Password uint64
+	Password string
 	Articles []Article
 	Comments []Comment
 }

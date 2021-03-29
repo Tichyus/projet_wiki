@@ -33,7 +33,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	username := vars["username"]
 
-	db.Create(&models.User{Username: username})
+	db.Create(&models.User{Username: username, Password: "password"})
 }
 
 /**
