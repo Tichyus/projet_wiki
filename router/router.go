@@ -1,9 +1,10 @@
 package router
- 
+
 import (
-	"github.com/gorilla/mux"
-	"projet_wiki/controllers"
 	"net/http"
+	"projet_wiki/controllers"
+
+	"github.com/gorilla/mux"
 )
 
 //This is a router, powered by mux!
@@ -17,7 +18,6 @@ type Route struct {
 	HandlerFunc http.HandlerFunc
 }
 
-
 type Routes []Route
 
 // NewRouter is the register for every public route
@@ -28,10 +28,10 @@ func NewRouter() *mux.Router {
 	//Check every route created below register it
 	for _, route := range routes {
 		router.
-		Methods(route.Method).
-		Path(route.Pattern).
-		Name(route.Name).
-		Handler(route.HandlerFunc)
+			Methods(route.Method).
+			Path(route.Pattern).
+			Name(route.Name).
+			Handler(route.HandlerFunc)
 	}
 
 	return router
