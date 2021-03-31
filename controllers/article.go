@@ -31,7 +31,7 @@ func AllArticles(w http.ResponseWriter, r *http.Request) {
 func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id, err := strconv.ParseUint(vars["userId"], 10, 32)
+	id, err := strconv.ParseUint(vars["id"], 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -48,7 +48,7 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 func ReadArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := vars["id"]
 	var article models.Article
 	db.Where("ID = ?", id).Find(&article)
 
@@ -77,8 +77,7 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
  */
 func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := r.FormValue("id")
 
 	var article models.Article
 	db.Where("ID = ?", id).Find(&article)

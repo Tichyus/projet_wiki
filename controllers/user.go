@@ -17,7 +17,7 @@ import (
 func ReadUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := vars["id"]
 	var user models.User
 	db.Where("ID = ?", id).Find(&user)
 
@@ -42,8 +42,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
  */
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := r.FormValue("id")
 
 	var user models.User
 	db.Where("ID = ?", id).Find(&user)

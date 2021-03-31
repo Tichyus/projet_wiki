@@ -39,28 +39,116 @@ func NewRouter() *mux.Router {
 
 //This is gonna be parsed, so this must contain every public route.
 var routes = Routes{
+
+
+	// User management routes
+
 	Route{
-		Name:        "hello",
-		Method:      "GET",
-		Pattern:     "/hello",
-		HandlerFunc: controllers.HelloHandler,
-	},
-	Route{
-		Name:        "displayData",
-		Method:      "GET",
-		Pattern:     "/displayData",
-		HandlerFunc: controllers.DisplayData,
-	},
-	Route{
-		Name:        "getData",
-		Method:      "GET",
-		Pattern:     "/data",
-		HandlerFunc: controllers.GetData,
-	},
-	Route{
-		Name:        "post example",
+		Name:        "Create user",
 		Method:      "POST",
-		Pattern:     "/data/received",
-		HandlerFunc: controllers.ReceiveData,
+		Pattern:     "user/create",
+		HandlerFunc: controllers.CreateUser,
+	},
+
+	Route{
+		Name:        "Read user",
+		Method:      "GET",
+		Pattern:     `/user/{id}`,
+		HandlerFunc: controllers.ReadUser,
+	},
+
+	Route{
+		Name:        "Update user",
+		Method:      "POST",
+		Pattern:     "/user/update",
+		HandlerFunc: controllers.UpdateUser,
+	},
+
+	Route{
+		Name:        "Delete user",
+		Method:      "POST",
+		Pattern:     `/delete/delete`,
+		HandlerFunc: controllers.DeleteUser,
+	},
+
+	// Articles management routes
+
+	Route{
+		Name:        "list all articles",
+		Method:      "GET",
+		Pattern:     "/article",
+		HandlerFunc: controllers.AllArticles,
+	},
+
+	Route{
+		Name:        "list all articles from one user",
+		Method:      "GET",
+		Pattern:     `/user/{id}/articles`,
+		HandlerFunc: controllers.AllArticlesFromUser,
+	},
+
+	Route{
+		Name:        "Read specific article ",
+		Method:      "GET",
+		Pattern:     "/article/{id}",
+		HandlerFunc: controllers.ReadArticle,
+	},
+
+	Route{
+		Name:        "create article",
+		Method:      "POST",
+		Pattern:     `/article/create`,
+		HandlerFunc: controllers.CreateArticle,
+	},
+
+	Route{
+		Name:        "delete article",
+		Method:      "POST",
+		Pattern:     "/article/delete",
+		HandlerFunc: controllers.DeleteArticle,
+	},
+
+	Route{
+		Name:        "Update article",
+		Method:      "POST",
+		Pattern:     `/article/update`,
+		HandlerFunc: controllers.UpdateArticle,
+	},
+
+	// Comment management routes
+
+	Route{
+		Name:        "Read specific comment",
+		Method:      "GET",
+		Pattern:     "/comment/{id}",
+		HandlerFunc: controllers.ReadComment,
+	},
+
+	Route{
+		Name:        "list all comments from one article",
+		Method:      "GET",
+		Pattern:     `/articles/{id}/comments`,
+		HandlerFunc: controllers.ReadComments,
+	},
+
+	Route{
+		Name:        "create comment",
+		Method:      "POST",
+		Pattern:     "/comment/create",
+		HandlerFunc: controllers.CreateComment,
+	},
+
+	Route{
+		Name:        "delete comment",
+		Method:      "POST",
+		Pattern:     `/comment/delete`,
+		HandlerFunc: controllers.DeleteComment,
+	},
+
+	Route{
+		Name:        "update comment",
+		Method:      "POST",
+		Pattern:     "/comment/update",
+		HandlerFunc: controllers.UpdateComment,
 	},
 }
