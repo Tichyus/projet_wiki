@@ -19,7 +19,7 @@ import (
 func ReadComment(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := vars["id"]
 	var comment models.Comment
 	db.Where("ID = ?", id).Find(&comment)
 
@@ -33,7 +33,7 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 func ReadComments(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id, err := strconv.ParseUint(vars["ID"], 10, 32)
+	id, err := strconv.ParseUint(vars["id"], 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -66,8 +66,7 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
  */
 func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := r.FormValue("id")
 
 	var comment models.Comment
 	db.Where("ID = ?", id).Find(&comment)
