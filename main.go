@@ -1,10 +1,10 @@
 package main
 
 import (
-	"projet_wiki/database"
 	"github.com/joho/godotenv"
 	"log"
 	"net/http"
+	"projet_wiki/database"
 	"projet_wiki/router"
 )
 
