@@ -67,8 +67,13 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	var user models.User
+	db.First(&user, &userID)
+	newArticle := &models.Article{Title: title, Content: content, User: user}
 
-	db.Create(&models.Article{Title: title, Content: content, UserId: userID})
+	db.Create(&newArticle)
+
+	json.NewEncoder(w).Encode(newArticle)
 }
 
 /**
@@ -101,4 +106,6 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	article.Content = content
 
 	db.Save(&article)
+
+	json.NewEncoder(w).Encode(article)
 }

@@ -57,7 +57,15 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	db.Create(&models.Comment{Content: content, ArticleId: articleID, UserId: userID})
+	var user models.User
+	db.First(&user, &userID)
+	var article models.Article
+	db.First(&article, &articleID)
+	newComment := &models.Comment{Content: content, Article: article, User: user}
+
+	db.Create(&newComment)
+
+	json.NewEncoder(w).Encode(newComment)
 }
 
 /**
@@ -88,4 +96,6 @@ func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	comment.Content = content
 
 	db.Save(&comment)
+
+	json.NewEncoder(w).Encode(comment)
 }
