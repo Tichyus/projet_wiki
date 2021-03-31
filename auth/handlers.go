@@ -5,10 +5,10 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"time"
+	"os"
 )
 // Create the JWT key used to create the signature
-var jwtKey = []byte("my_secret_key")
-var JwtKey = &jwtKey
+var jwtKey = []byte(os.Getenv("JWT_KEY"))
 
 // fake credentials (test-only)
 var users = map[string]string{

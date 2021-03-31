@@ -5,7 +5,10 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"projet_wiki/auth"
+	"os"
 )
+
+var jwtKey = []byte(os.Getenv("JWT_KEY"))
 
 func WelcomeUser(w http.ResponseWriter, r *http.Request) {
 	// We can obtain the session token from the requests cookies, which come with every request
@@ -27,21 +30,21 @@ func WelcomeUser(w http.ResponseWriter, r *http.Request) {
 	tknStr := c.Value
 
 	// Initialize a new instance of `Claims`
-	claims := auth.Claims{}
+	claims := &auth.Claims{}
 
 	// Parse the JWT string and store the result in `claims`.
 	// Note that we are passing the key in this method as well. This method will return an error
 	// if the token is invalid (if it has expired according to the expiry time we set on sign in),
 	// or if the signature does not match
 	tkn, err := jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
-		return *auth.JwtKey, nil
+		return jwtKey, nil
 	})
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		fmt.Fprintf(w, "3")
+		fmt.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
