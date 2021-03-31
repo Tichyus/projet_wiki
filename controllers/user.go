@@ -30,10 +30,10 @@ func ReadUser(w http.ResponseWriter, r *http.Request) {
  */
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	username := vars["username"]
+	username := r.FormValue("username")
+	password := r.FormValue("password")
 
-	db.Create(&models.User{Username: username, Password: "password"})
+	db.Create(&models.User{Username: username, Password: password})
 }
 
 /**
@@ -56,9 +56,8 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
  */
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
-	username := vars["username"]
+	id := r.FormValue("id")
+	username := r.FormValue("username")
 
 	var user models.User
 	db.Where("ID = ?", id).Find(&user)

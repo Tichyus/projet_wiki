@@ -50,10 +50,9 @@ func ReadComments(w http.ResponseWriter, r *http.Request) {
  */
 func CreateComment(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	content := vars["content"]
-	userID, err := strconv.ParseUint(vars["userID"], 10, 32)
-	articleID, err := strconv.ParseUint(vars["articleID"], 10, 32)
+	content := r.FormValue("content")
+	userID, err := strconv.ParseUint(r.FormValue("userID"), 10, 32)
+	articleID, err := strconv.ParseUint(r.FormValue("articleID"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -81,9 +80,8 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
  */
 func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
-	content := vars["content"]
+	id := r.FormValue("id")
+	content := r.FormValue("content")
 
 	var comment models.Comment
 	db.Where("ID = ?", id).Find(&comment)

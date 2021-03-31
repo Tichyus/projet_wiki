@@ -61,10 +61,9 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
  */
 func CreateArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	title := vars["title"]
-	content := vars["content"]
-	userID, err := strconv.ParseUint(vars["userID"], 10, 32)
+	title := r.FormValue("title")
+	content := r.FormValue("content")
+	userID, err := strconv.ParseUint(r.FormValue("userId"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -92,10 +91,9 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
  */
 func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
-	title := vars["title"]
-	content := vars["content"]
+	id := r.FormValue("id")
+	title := r.FormValue("title")
+	content := r.FormValue("content")
 
 	var article models.Article
 	db.Where("ID = ?", id).Find(&article)
