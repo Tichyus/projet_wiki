@@ -16,12 +16,10 @@ func WelcomeUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == http.ErrNoCookie {
 			// If the cookie is not set, return an unauthorized status
-			fmt.Fprintf(w, "1")
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
 		// For any other type of error, return a bad request status
-		fmt.Fprintf(w, "2")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -44,7 +42,6 @@ func WelcomeUser(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		fmt.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
