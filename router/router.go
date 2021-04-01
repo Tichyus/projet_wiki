@@ -40,13 +40,12 @@ func NewRouter() *mux.Router {
 //This is gonna be parsed, so this must contain every public route.
 var routes = Routes{
 
-
 	// User management routes
 
 	Route{
 		Name:        "Create user",
 		Method:      "POST",
-		Pattern:     "user/create",
+		Pattern:     "/user/create",
 		HandlerFunc: controllers.CreateUser,
 	},
 

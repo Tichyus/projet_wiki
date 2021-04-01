@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"projet_wiki/database"
@@ -19,7 +20,10 @@ func ReadUser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	var user models.User
-	db.Where("ID = ?", id).Find(&user)
+	err := db.Where("ID = ?", id).Find(&user)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(user)
 }
@@ -35,7 +39,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	user := &models.User{Username: username, Password: password}
 
-	db.Create(&user)
+	err := db.Create(&user)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(user)
 }
@@ -49,7 +56,10 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 
 	var user models.User
-	db.Where("ID = ?", id).Find(&user)
+	err := db.Where("ID = ?", id).Find(&user)
+	if err != nil {
+		fmt.Println(err)
+	}
 	db.Delete(&user)
 }
 
@@ -63,11 +73,17 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("username")
 
 	var user models.User
-	db.Where("ID = ?", id).Find(&user)
+	err := db.Where("ID = ?", id).Find(&user)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	user.Username = username
 
-	db.Save(&user)
+	err2 := db.Save(&user)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(user)
 }

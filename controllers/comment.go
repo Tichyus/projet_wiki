@@ -21,7 +21,10 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	var comment models.Comment
-	db.Where("ID = ?", id).Find(&comment)
+	err := db.Where("ID = ?", id).Find(&comment)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(comment)
 }
@@ -58,12 +61,21 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var user models.User
-	db.First(&user, &userID)
+	err2 := db.First(&user, &userID)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 	var article models.Article
-	db.First(&article, &articleID)
+	err3 := db.First(&article, &articleID)
+	if err3 != nil {
+		fmt.Println(err)
+	}
 	newComment := &models.Comment{Content: content, Article: article, User: user}
 
-	db.Create(&newComment)
+	err4 := db.Create(&newComment)
+	if err4 != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(newComment)
 }
@@ -77,7 +89,10 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 
 	var comment models.Comment
-	db.Where("ID = ?", id).Find(&comment)
+	err := db.Where("ID = ?", id).Find(&comment)
+	if err != nil {
+		fmt.Println(err)
+	}
 	db.Delete(&comment)
 }
 
@@ -91,11 +106,17 @@ func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("content")
 
 	var comment models.Comment
-	db.Where("ID = ?", id).Find(&comment)
+	err := db.Where("ID = ?", id).Find(&comment)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	comment.Content = content
 
-	db.Save(&comment)
+	err2 := db.Save(&comment)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(comment)
 }

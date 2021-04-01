@@ -19,7 +19,10 @@ import (
 func AllArticles(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	var articles []models.Article
-	db.Find(&articles)
+	err := db.Find(&articles)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(articles)
 }
@@ -36,7 +39,10 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	var articles []models.Article
-	db.Where(&models.Article{UserId: id}, "User.ID").Find(&articles)
+	err2 := db.Where(&models.Article{UserId: id}, "User.ID").Find(&articles)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(articles)
 }
@@ -50,7 +56,10 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	var article models.Article
-	db.Where("ID = ?", id).Find(&article)
+	err := db.Where("ID = ?", id).Find(&article)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(article)
 }
@@ -68,10 +77,16 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	var user models.User
-	db.First(&user, &userID)
+	err2 := db.First(&user, &userID)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 	newArticle := &models.Article{Title: title, Content: content, User: user}
 
-	db.Create(&newArticle)
+	err3 := db.Create(&newArticle)
+	if err3 != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(newArticle)
 }
@@ -85,7 +100,10 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 
 	var article models.Article
-	db.Where("ID = ?", id).Find(&article)
+	err := db.Where("ID = ?", id).Find(&article)
+	if err != nil {
+		fmt.Println(err)
+	}
 	db.Delete(&article)
 }
 
@@ -100,12 +118,18 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("content")
 
 	var article models.Article
-	db.Where("ID = ?", id).Find(&article)
+	err := db.Where("ID = ?", id).Find(&article)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	article.Title = title
 	article.Content = content
 
-	db.Save(&article)
+	err2 := db.Save(&article)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(article)
 }
