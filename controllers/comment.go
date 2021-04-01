@@ -21,7 +21,7 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 	var comment models.Comment
-	err := db.Where("ID = ?", ID).Find(&comment)
+	err := db.Where("id= ?", ID).Find(&comment)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -42,7 +42,7 @@ func ReadComments(w http.ResponseWriter, r *http.Request) {
 	}
 	var article models.Article
 
-	comments := db.Where("ID = ?", ID).Find(&article).Association("Comments")
+	comments := db.Where("id = ?", ID).Find(&article).Association("Comments")
 
 	json.NewEncoder(w).Encode(comments)
 }
@@ -89,7 +89,7 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	ID := r.FormValue("ID")
 
 	var comment models.Comment
-	err := db.Where("ID = ?", ID).Find(&comment)
+	err := db.Where("id = ?", ID).Find(&comment)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -106,7 +106,7 @@ func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("content")
 
 	var comment models.Comment
-	err := db.Where("ID = ?", ID).Find(&comment)
+	err := db.Where("id = ?", ID).Find(&comment)
 	if err != nil {
 		fmt.Println(err)
 	}

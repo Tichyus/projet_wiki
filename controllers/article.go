@@ -39,7 +39,7 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	var articles []models.Article
-	err2 := db.Where(&models.Article{UserID: ID}, "User.ID").Find(&articles)
+	err2 := db.Where("user_id = ?", ID).Find(&articles)
 	if err2 != nil {
 		fmt.Println(err)
 	}
@@ -56,7 +56,7 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	ID := vars["ID"]
 	var article models.Article
-	err := db.Where("ID = ?", ID).Find(&article)
+	err := db.Where("id = ?", ID).Find(&article)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -100,7 +100,7 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 	ID := r.FormValue("ID")
 
 	var article models.Article
-	err := db.Where("ID = ?", ID).Find(&article)
+	err := db.Where("id = ?", ID).Find(&article)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -118,7 +118,7 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("content")
 
 	var article models.Article
-	err := db.Where("ID = ?", ID).Find(&article)
+	err := db.Where("id = ?", ID).Find(&article)
 	if err != nil {
 		fmt.Println(err)
 	}
