@@ -40,10 +40,11 @@ func ReadComments(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	var article models.Article
-
-	comments := db.Where("id = ?", ID).Find(&article).Association("Comments")
-
+	var comments []models.Comment
+	err2 := db.Where("article_id = ?", ID).Find(&comments)
+	if err2 != nil {
+		fmt.Println(err)
+	}
 	json.NewEncoder(w).Encode(comments)
 }
 
