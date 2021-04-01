@@ -6,7 +6,7 @@ import (
 
 type Article struct {
 	gorm.Model
-	UserId   uint64
+	UserID   uint64
 	User     User
 	Title    string
 	Content  string

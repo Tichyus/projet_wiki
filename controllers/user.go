@@ -18,9 +18,9 @@ import (
 func ReadUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id := vars["id"]
+	ID := vars["ID"]
 	var user models.User
-	err := db.Where("ID = ?", id).Find(&user)
+	err := db.Where("ID = ?", ID).Find(&user)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -53,10 +53,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
  */
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	id := r.FormValue("id")
+	ID := r.FormValue("ID")
 
 	var user models.User
-	err := db.Where("ID = ?", id).Find(&user)
+	err := db.Where("ID = ?", ID).Find(&user)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -69,11 +69,11 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
  */
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	id := r.FormValue("id")
+	ID := r.FormValue("ID")
 	username := r.FormValue("username")
 
 	var user models.User
-	err := db.Where("ID = ?", id).Find(&user)
+	err := db.Where("ID = ?", ID).Find(&user)
 	if err != nil {
 		fmt.Println(err)
 	}

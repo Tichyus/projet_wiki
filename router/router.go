@@ -52,7 +52,7 @@ var routes = Routes{
 	Route{
 		Name:        "Read user",
 		Method:      "GET",
-		Pattern:     `/user/{id}`,
+		Pattern:     `/user/{ID}`,
 		HandlerFunc: controllers.ReadUser,
 	},
 
@@ -82,14 +82,14 @@ var routes = Routes{
 	Route{
 		Name:        "list all articles from one user",
 		Method:      "GET",
-		Pattern:     `/user/{id}/articles`,
+		Pattern:     `/user/{ID}/articles`,
 		HandlerFunc: controllers.AllArticlesFromUser,
 	},
 
 	Route{
 		Name:        "Read specific article ",
 		Method:      "GET",
-		Pattern:     "/article/{id}",
+		Pattern:     "/article/{ID}",
 		HandlerFunc: controllers.ReadArticle,
 	},
 
@@ -119,14 +119,14 @@ var routes = Routes{
 	Route{
 		Name:        "Read specific comment",
 		Method:      "GET",
-		Pattern:     "/comment/{id}",
+		Pattern:     "/comment/{ID}",
 		HandlerFunc: controllers.ReadComment,
 	},
 
 	Route{
 		Name:        "list all comments from one article",
 		Method:      "GET",
-		Pattern:     `/articles/{id}/comments`,
+		Pattern:     `/articles/{ID}/comments`,
 		HandlerFunc: controllers.ReadComments,
 	},
 

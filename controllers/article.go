@@ -29,17 +29,17 @@ func AllArticles(w http.ResponseWriter, r *http.Request) {
 
 /**
 * Returns all articles from a specific user
-* Required arguments: string userId
+* Required arguments: string userID
  */
 func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id, err := strconv.ParseUint(vars["id"], 10, 32)
+	ID, err := strconv.ParseUint(vars["ID"], 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
 	var articles []models.Article
-	err2 := db.Where(&models.Article{UserId: id}, "User.ID").Find(&articles)
+	err2 := db.Where(&models.Article{UserID: ID}, "User.ID").Find(&articles)
 	if err2 != nil {
 		fmt.Println(err)
 	}
@@ -54,9 +54,9 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 func ReadArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id := vars["id"]
+	ID := vars["ID"]
 	var article models.Article
-	err := db.Where("ID = ?", id).Find(&article)
+	err := db.Where("ID = ?", ID).Find(&article)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -72,7 +72,7 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	title := r.FormValue("title")
 	content := r.FormValue("content")
-	userID, err := strconv.ParseUint(r.FormValue("userId"), 10, 32)
+	userID, err := strconv.ParseUint(r.FormValue("userID"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -97,10 +97,10 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
  */
 func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	id := r.FormValue("id")
+	ID := r.FormValue("ID")
 
 	var article models.Article
-	err := db.Where("ID = ?", id).Find(&article)
+	err := db.Where("ID = ?", ID).Find(&article)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -113,12 +113,12 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
  */
 func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	id := r.FormValue("id")
+	ID := r.FormValue("ID")
 	title := r.FormValue("title")
 	content := r.FormValue("content")
 
 	var article models.Article
-	err := db.Where("ID = ?", id).Find(&article)
+	err := db.Where("ID = ?", ID).Find(&article)
 	if err != nil {
 		fmt.Println(err)
 	}
