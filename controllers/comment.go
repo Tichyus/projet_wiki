@@ -19,7 +19,7 @@ import (
 func ReadComment(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := vars["id"]
 	var comment models.Comment
 	db.Where("ID = ?", id).Find(&comment)
 
@@ -33,7 +33,7 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 func ReadComments(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	vars := mux.Vars(r)
-	id, err := strconv.ParseUint(vars["ID"], 10, 32)
+	id, err := strconv.ParseUint(vars["id"], 10, 32)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -57,7 +57,15 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	db.Create(&models.Comment{Content: content, ArticleId: articleID, UserId: userID})
+	var user models.User
+	db.First(&user, &userID)
+	var article models.Article
+	db.First(&article, &articleID)
+	newComment := &models.Comment{Content: content, Article: article, User: user}
+
+	db.Create(&newComment)
+
+	json.NewEncoder(w).Encode(newComment)
 }
 
 /**
@@ -66,8 +74,7 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
  */
 func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
-	vars := mux.Vars(r)
-	id := vars["ID"]
+	id := r.FormValue("id")
 
 	var comment models.Comment
 	db.Where("ID = ?", id).Find(&comment)
@@ -89,4 +96,6 @@ func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	comment.Content = content
 
 	db.Save(&comment)
+
+	json.NewEncoder(w).Encode(comment)
 }
