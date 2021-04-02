@@ -42,5 +42,12 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	http.SetCookie(w, &http.Cookie{
+		Name:    "token",
+		Value:   tokenString,
+		Expires: expirationTime,
+	})
+
+
 	w.Header().Set("Authorization", fmt.Sprintf("Bearer %s", tokenString))
 }
