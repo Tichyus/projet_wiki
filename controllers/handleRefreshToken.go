@@ -34,7 +34,7 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	
+
 	// We parse the token string and check signature
 	tkn, err := jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
@@ -51,7 +51,6 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	
 
 	// TODO : Make the verification time work
 	// AIM : if token expired since 30+ seconds, redirect to /signin route
@@ -61,7 +60,7 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	// 	w.WriteHeader(http.StatusBadRequest)
 	// 	return
 	// }
-	
+
 	// new token issued with a renewed expiration time
 	expirationTime := time.Now().Add(5 * time.Minute)
 	claims.ExpiresAt = expirationTime.Unix()
@@ -73,4 +72,4 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Authorization", fmt.Sprintf("Bearer %s", tokenString))
-} 
+}

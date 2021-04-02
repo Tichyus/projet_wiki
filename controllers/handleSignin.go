@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
-	"projet_wiki/models"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -19,19 +17,11 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		jwt.StandardClaims
 	}
 
-	var user models.User
-
-	// Get the JSON body and decode into credentials
-	err := json.NewDecoder(r.Body).Decode(&user)
-
-	if err != nil {
-		// If the structure of the body is wrong, return an HTTP error
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+	username := r.FormValue("username")
+	password := r.FormValue("password")
 
 	// DB check for user
-	if !CheckUserAuthCreds(user.Username, user.Password) {
+	if !CheckUserAuthCreds(username, password) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
@@ -39,7 +29,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	expirationTime := time.Now().Add(20 * time.Minute)
 
 	claims := &claimsStruct{
-		Username: user.Username,
+		Username: username,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},
