@@ -9,9 +9,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// check token -> refresh toker -> (check user)
-// existence -> format du token -> (parse) -> signature -> format du payload
-
 type claimsStruct struct {
 	Username string `json:"username"`
 	jwt.StandardClaims
@@ -59,6 +56,9 @@ func VerifyJwt(next http.HandlerFunc) http.HandlerFunc {
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
+
+		// test Q
+		// r.Header.Add("username", claims.Username)
 
 		// Proceed to the controller
 		next(w, r)
