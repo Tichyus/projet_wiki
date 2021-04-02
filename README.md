@@ -13,7 +13,7 @@ HETIC - MT4 Golang project - Quentin MAILLARD, Corentin BOULANOUAR, Lucas LEHOT,
 
 For more information on using Flamin.go, see the [Flamin.go Documentation](https://github.com/Tichyus/projet_wiki/wiki).
 
-###### Toute ressemblance du logo Flamin.go avec un logo existant ou ayant existé serait purement fortuite (c'est faux).
+###### Any resemblance to a already existing logo (living or dead) would be purely coincidental (that's a lie).
 
 # Project Status
 *This repo is a [HETIC school](https://www.hetic.net/) project and its purpose is purely educational.* 
