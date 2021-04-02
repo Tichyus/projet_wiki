@@ -9,7 +9,7 @@
 Flamin.go
 ====
 #### ***Golang & Json - Blog API***
-The aim of the project is to create an easy to use, lightweight library with a ... . The library also provides ... .
+HETIC - MT4 Golang project - Quentin MAILLARD, Corentin BOULANOUAR, Lucas LEHOT, Cyrille BANOVSKY
 
 For more information on using Flamin.go, see the [Flamin.go Documentation](https://github.com/Tichyus/projet_wiki/wiki).
 
