@@ -69,39 +69,38 @@ These instructions will get you a copy of the project up and running on your loc
 Before installing, [download and install Golang](https://golang.org/dl/). go1.15.8 or higher is required.
 
 ## Installation
-```golang
-
+First, create the simplest local database
+```
+mysql -u root
+create database flamingo
 ```
 
 ## Quick Start
-First, do this.
-```golang
-
+```
+go run .
 ```
 Congratulations.
 
-Now get to [url [dead link]](#). If everything went well you should see [this [dead link]](#).
+You can now access to all GET routes like list article(s), get comments, etc.
 
+Now get to 127.0.0.1/signup to create an account. 
 
-# Deployment
-*Add additional notes about how to deploy this on a live system.*
+Then go to 127.0.0.1/signin to enter your credentials and get your bearer token (present in the header of the response under "Authorisation").
 
-* Launch :rocket:
-```golang
-
-```
-* Have a beer :beer:
+You can now access to all the POST routes during 20 minutes (create article, update article, create comment, etc) by adding the token in your header, until it expires.
 
 # Documentation
 See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file for documentation of classes and utility functions.
 
 # Known Issues
-- none
+- The refresh token endpoint struggles with time calculations to give a new token, so for now, you just need a token that was created by the API to hit /refresh-token and get a new valid one.
+- While you have a valid token you can access all POST routes, included the ones to update/delete comments, users, and articles that should need an access authorisation based on rights of the account to edit/update/delete an element.
 
 # Built With
 * [Golang](https://golang.org/) - Open source programming language
 * [GORM](https://gorm.io/index.html) - "The fantastic ORM library for Golang"
 * [Mux](https://github.com/gorilla/mux) - "A powerful HTTP router and URL matcher for building Go web servers"
+* [Jwt-go](https://github.com/dgrijalva/jwt-go) - A go implementation of JSON Web Tokens
 
 # Team Members
 * **Quentin Maillard** - [Tichyus](https://github.com/Tichyus)

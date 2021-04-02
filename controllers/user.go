@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"projet_wiki/database"
 	"projet_wiki/models"
+
 	"github.com/gorilla/mux"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -99,8 +100,6 @@ func CheckUserAuthCreds(username string, password string) bool {
 	if err != nil {
 		return false
 	}
-	if password != user.Password {
-		return false
-	}
-	return true
+	passwordErr := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	return passwordErr == nil
 }
