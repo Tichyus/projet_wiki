@@ -4,10 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
 	"projet_wiki/database"
 	"projet_wiki/models"
-
 	"github.com/gorilla/mux"
 )
 
@@ -86,4 +84,17 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(user)
+}
+
+func CheckUserAuthCreds(username string, password string) bool {
+	db := database.DbConn
+	var user models.User
+	err := db.Where("username = ?", username).First(&user).Error
+	if err != nil {
+		return false
+	}
+	if password != user.Password {
+		return false
+	}
+	return true
 }

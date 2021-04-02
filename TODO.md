@@ -1,0 +1,4 @@
+- [x] terminer le signin depuis bdd
+- [-] creer route de user signup (+ envoie de token grace signin)
+- [] setup middleware de refresh
+- [] mettre en place middleware sur toutes les requetes qui ne sont pas de l'auth ou de l'affichage
