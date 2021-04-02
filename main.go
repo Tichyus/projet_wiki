@@ -14,15 +14,15 @@ func main() {
 	port := "8080"
 	newRouter := router.NewRouter()
 
-	err := database.Connect()
-	if err != nil {
-		log.Fatalf("Impossible de se connecter à la bdd: %v", err)
-	}
-
 	// Loading environment variables
-	err = godotenv.Load()
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
+	}
+
+	err = database.Connect()
+	if err != nil {
+		log.Fatalf("Impossible de se connecter à la bdd: %v", err)
 	}
 
 	log.Print("\nServer started on port " + port)
