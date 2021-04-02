@@ -26,7 +26,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	expirationTime := time.Now().Add(20 * time.Minute)
+	expirationTime := time.Now().Add(10 * time.Minute)
 
 	claims := &claimsStruct{
 		Username: username,
