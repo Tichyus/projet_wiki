@@ -93,7 +93,8 @@ You can now access to all the POST routes during 20 minutes (create article, upd
 See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file for documentation of classes and utility functions.
 
 # Known Issues
-- none
+- The refresh token endpoint struggles with time calculations to give a new token, so for now, you just need a token that was created by the API to hit /refresh-token and get a new valid one.
+- While you have a valid token you can access all POST routes, included the ones to update/delete comments, users, and articles that should need an access authorisation based on rights of the account to edit/update/delete an element.
 
 # Built With
 * [Golang](https://golang.org/) - Open source programming language
