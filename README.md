@@ -113,6 +113,7 @@ See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file f
 # Acknowledgments
 * Aiming to build a clear and well-structured documentation, the [Stripe API Documentation](https://stripe.com/docs/api) has been a huge reference for us.
 * [OAuth 2.0](https://www.oauth.com/), the modern standard for securing access to APIs guided us in the implementation of JWT.
+* [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) helped us document the HTTP response status codes.
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
