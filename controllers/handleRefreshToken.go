@@ -54,6 +54,7 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) > 30*time.Second {
+		// eventually redirect to /Signin
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
