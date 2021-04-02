@@ -41,13 +41,34 @@ func NewRouter() *mux.Router {
 //This is gonna be parsed, so this must contain every public route.
 var routes = Routes{
 
+	// Authentication routes
+
+	Route{
+		Name:        "Sign in",
+		Method:      "POST",
+		Pattern:     "/signin",
+		HandlerFunc: controllers.Signin,
+	},
+	Route{
+		Name:        "Sign up",
+		Method:      "POST",
+		Pattern:     "/signup",
+		HandlerFunc: controllers.CreateUser,
+	},
+	Route{
+		Name:        "Refresh jwt",
+		Method:      "POST",
+		Pattern:     "/refreshToken",
+		HandlerFunc: controllers.RefreshToken,
+	},
+
 	// User management routes
 
 	Route{
 		Name:        "Create user",
 		Method:      "POST",
 		Pattern:     "/user/create",
-		HandlerFunc: controllers.CreateUser,
+		HandlerFunc: middleware.VerifyJwt(controllers.CreateUser),
 	},
 
 	Route{
@@ -61,14 +82,14 @@ var routes = Routes{
 		Name:        "Update user",
 		Method:      "POST",
 		Pattern:     "/user/update",
-		HandlerFunc: controllers.UpdateUser,
+		HandlerFunc: middleware.VerifyJwt(controllers.UpdateUser),
 	},
 
 	Route{
 		Name:        "Delete user",
 		Method:      "POST",
 		Pattern:     `/delete/delete`,
-		HandlerFunc: controllers.DeleteUser,
+		HandlerFunc: middleware.VerifyJwt(controllers.DeleteUser),
 	},
 
 	// Articles management routes
@@ -98,21 +119,21 @@ var routes = Routes{
 		Name:        "create article",
 		Method:      "POST",
 		Pattern:     `/article/create`,
-		HandlerFunc: controllers.CreateArticle,
+		HandlerFunc: middleware.VerifyJwt(controllers.CreateArticle),
 	},
 
 	Route{
 		Name:        "delete article",
 		Method:      "POST",
 		Pattern:     "/article/delete",
-		HandlerFunc: controllers.DeleteArticle,
+		HandlerFunc: middleware.VerifyJwt(controllers.DeleteArticle),
 	},
 
 	Route{
 		Name:        "Update article",
 		Method:      "POST",
 		Pattern:     `/article/update`,
-		HandlerFunc: controllers.UpdateArticle,
+		HandlerFunc: middleware.VerifyJwt(controllers.UpdateArticle),
 	},
 
 	// Comment management routes
@@ -135,34 +156,25 @@ var routes = Routes{
 		Name:        "create comment",
 		Method:      "POST",
 		Pattern:     "/comment/create",
-		HandlerFunc: controllers.CreateComment,
+		HandlerFunc: middleware.VerifyJwt(controllers.CreateComment),
 	},
 
 	Route{
 		Name:        "delete comment",
 		Method:      "POST",
 		Pattern:     `/comment/delete`,
-		HandlerFunc: controllers.DeleteComment,
+		HandlerFunc: middleware.VerifyJwt(controllers.DeleteComment),
 	},
 
 	Route{
 		Name:        "update comment",
 		Method:      "POST",
 		Pattern:     "/comment/update",
-		HandlerFunc: controllers.UpdateComment,
+		HandlerFunc: middleware.VerifyJwt(controllers.UpdateComment),
 	},
-	Route{
-		Name:        "Sign in",
-		Method:      "POST",
-		Pattern:     "/signin",
-		HandlerFunc: controllers.Signin,
-	},
-	Route{
-		Name:        "Refresh jwt",
-		Method:      "POST",
-		Pattern:     "/refreshToken",
-		HandlerFunc: controllers.RefreshToken,
-	},
+
+	// Simple 
+
 	Route{
 		Name:        "Welcome user",
 		Method:      "GET",
