@@ -31,7 +31,6 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	if len(extractedToken) == 2 {
 		tknStr = strings.TrimSpace(extractedToken[1])
 	} else {
-		fmt.Printf("bad request 1")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -53,11 +52,15 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) > 30*time.Second {
-		// eventually redirect to /Signin
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+
+	// TODO : Make the verification time work
+	// AIM : if token expired since 30+ seconds, redirect to /signin route
+
+	// if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) > 1*time.Minute {
+	// 	fmt.Println(time.Unix(claims.ExpiresAt, 0).Sub(time.Now()))
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	return
+	// }
 	
 	// new token issued with a renewed expiration time
 	expirationTime := time.Now().Add(5 * time.Minute)
