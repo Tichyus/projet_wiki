@@ -14,7 +14,7 @@ import (
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var jwtKey = []byte(os.Getenv("JWT_KEY"))
 
-	type Claims struct {
+	type claimsStruct struct {
 		Username string `json:"username"`
 		jwt.StandardClaims
 	}
@@ -36,9 +36,9 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	expirationTime := time.Now().Add(5 * time.Minute)
+	expirationTime := time.Now().Add(20 * time.Second)
 
-	claims := &Claims{
+	claims := &claimsStruct{
 		Username: user.Username,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
