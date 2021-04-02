@@ -7,6 +7,7 @@ import (
 	"projet_wiki/database"
 	"projet_wiki/models"
 	"github.com/gorilla/mux"
+	"golang.org/x/crypto/bcrypt"
 )
 
 /**
@@ -34,12 +35,17 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	db := database.DbConn
 	username := r.FormValue("username")
 	password := r.FormValue("password")
+	bytes, err1 := bcrypt.GenerateFromPassword([]byte(password), 14)
+	if err1 != nil {
+		fmt.Println(err1)
+	}
+	hashedPassword := string(bytes)
 
-	user := &models.User{Username: username, Password: password}
+	user := &models.User{Username: username, Password: hashedPassword}
 
-	err := db.Create(&user)
-	if err != nil {
-		fmt.Println(err)
+	err2 := db.Create(&user)
+	if err2 != nil {
+		fmt.Println(err2)
 	}
 
 	json.NewEncoder(w).Encode(user)
