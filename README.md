@@ -5,13 +5,15 @@
       width="400"
     />
 </p>
-                 
+
 Flamin.go
 ====
 #### ***Golang & Json - Blog API***
 HETIC - MT4 Golang project - Quentin MAILLARD, Corentin BOULANOUAR, Lucas LEHOT, Cyrille BANOVSKY
 
 For more information on using Flamin.go, see the [Flamin.go Documentation](https://github.com/Tichyus/projet_wiki/wiki).
+
+###### Toute ressemblance du logo Flamin.go avec un logo existant ou ayant existé serait purement fortuite (c'est faux).
 
 # Project Status
 *This repo is a [HETIC school](https://www.hetic.net/) project and its purpose is purely educational.* 
