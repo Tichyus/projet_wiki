@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gorilla/mux"
+	// "projet_wiki/middleware"
 	"projet_wiki/controllers"
-	"projet_wiki/auth"
 	"net/http"
 )
 
@@ -154,12 +154,6 @@ var routes = Routes{
 		Name:        "Signin",
 		Method:      "POST",
 		Pattern:     "/signin",
-		HandlerFunc: auth.Signin,
-	},
-	Route{
-		Name:        "Welcome",
-		Method:      "GET",
-		Pattern:     "/welcome",
-		HandlerFunc: controllers.WelcomeUser,
+		HandlerFunc: controllers.Signin,
 	},
 }
