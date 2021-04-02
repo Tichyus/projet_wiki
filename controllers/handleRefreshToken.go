@@ -4,9 +4,16 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"time"
+	"os"
 )
 
 func Refresh(w http.ResponseWriter, r *http.Request) {
+	var jwtKey = []byte(os.Getenv("JWT_KEY"))
+	type Claims struct {
+		Username string `json:"username"`
+		jwt.StandardClaims
+	}
+	
 	// (BEGIN) The code uptil this point is the same as the first part of the `Welcome` route
 	c, err := r.Cookie("token")
 	if err != nil {
@@ -34,6 +41,7 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+	
 	// (END) The code uptil this point is the same as the first part of the `Welcome` route
 
 	// We ensure that a new token is not issued until enough time has elapsed

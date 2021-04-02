@@ -9,15 +9,14 @@ import (
 	"projet_wiki/models"
 )
 
-// Create a struct that will be encoded to a JWT.
-// We add jwt.StandardClaims as an embedded type, to provide fields like expiry time
-type Claims struct {
-	Username string `json:"username"`
-	jwt.StandardClaims
-}
 
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var jwtKey = []byte(os.Getenv("JWT_KEY"))
+
+	type Claims struct {
+		Username string `json:"username"`
+		jwt.StandardClaims
+	}
 	
 	var user models.User
 
