@@ -1,10 +1,11 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
-	// "projet_wiki/middleware"
-	"projet_wiki/controllers"
 	"net/http"
+	"projet_wiki/controllers"
+	"projet_wiki/middleware"
+
+	"github.com/gorilla/mux"
 )
 
 //This is a router, powered by mux!
@@ -151,9 +152,21 @@ var routes = Routes{
 		HandlerFunc: controllers.UpdateComment,
 	},
 	Route{
-		Name:        "Signin",
+		Name:        "Sign in",
 		Method:      "POST",
 		Pattern:     "/signin",
 		HandlerFunc: controllers.Signin,
+	},
+	Route{
+		Name:        "Refresh jwt",
+		Method:      "POST",
+		Pattern:     "/refreshToken",
+		HandlerFunc: controllers.RefreshToken,
+	},
+	Route{
+		Name:        "Welcome user",
+		Method:      "GET",
+		Pattern:     "/welcome",
+		HandlerFunc: middleware.VerifyJwt(controllers.Welcome),
 	},
 }
