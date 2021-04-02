@@ -1,7 +1,7 @@
 <p align="center"> 
 <img
       alt="Flamin.go"
-      src="https://i.imgur.com/jOiyrFQ.png "Flamin.Go logo"
+      src="https://i.imgur.com/0nvlLvW.png"
       width="400"
     />
 </p>
