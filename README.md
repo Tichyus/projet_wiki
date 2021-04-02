@@ -81,17 +81,10 @@ go run .
 ```
 Congratulations.
 
-Now get to [url [dead link]](#). If everything went well you should see [this [dead link]](#).
-
-
-# Deployment
-*Add additional notes about how to deploy this on a live system.*
-
-* Launch :rocket:
-```golang
-
-```
-* Have a beer :beer:
+You can now access to all GET routes like list article(s), get comments, etc.
+Now get to 127.0.0.1/signup to create an account. 
+Then go to 127.0.0.1/signin to enter your credentials and get your bearer token (present in the header of the response under "Authorisation").
+You can now access to all the POST routes during 20 minutes (create article, update article, create comment, etc) by adding the token in your header, until it expires.
 
 # Documentation
 See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file for documentation of classes and utility functions.
@@ -103,6 +96,7 @@ See the [Documentation Wiki](https://github.com/Tichyus/projet_wiki/wiki) file f
 * [Golang](https://golang.org/) - Open source programming language
 * [GORM](https://gorm.io/index.html) - "The fantastic ORM library for Golang"
 * [Mux](https://github.com/gorilla/mux) - "A powerful HTTP router and URL matcher for building Go web servers"
+* [Jwt-go](https://github.com/dgrijalva/jwt-go) - A go implementation of JSON Web Tokens
 
 # Team Members
 * **Quentin Maillard** - [Tichyus](https://github.com/Tichyus)
