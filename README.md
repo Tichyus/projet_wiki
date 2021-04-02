@@ -82,8 +82,11 @@ go run .
 Congratulations.
 
 You can now access to all GET routes like list article(s), get comments, etc.
+
 Now get to 127.0.0.1/signup to create an account. 
+
 Then go to 127.0.0.1/signin to enter your credentials and get your bearer token (present in the header of the response under "Authorisation").
+
 You can now access to all the POST routes during 20 minutes (create article, update article, create comment, etc) by adding the token in your header, until it expires.
 
 # Documentation
