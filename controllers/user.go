@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"projet_wiki/database"
 	"projet_wiki/models"
@@ -22,7 +21,8 @@ func ReadUser(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	err := db.Where("id = ?", ID).Find(&user)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(user)
@@ -38,7 +38,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	bytes, err1 := bcrypt.GenerateFromPassword([]byte(password), 14)
 	if err1 != nil {
-		fmt.Println(err1)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	hashedPassword := string(bytes)
 
@@ -46,7 +47,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	err2 := db.Create(&user)
 	if err2 != nil {
-		fmt.Println(err2)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(user)
@@ -63,7 +65,8 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	err := db.Where("id = ?", ID).Find(&user)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	db.Delete(&user)
 }
@@ -80,14 +83,16 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	err := db.Where("id = ?", ID).Find(&user)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	user.Username = username
 
 	err2 := db.Save(&user)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(user)

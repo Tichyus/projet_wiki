@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -23,7 +22,8 @@ func ReadComment(w http.ResponseWriter, r *http.Request) {
 	var comment models.Comment
 	err := db.Where("id= ?", ID).Find(&comment)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(comment)
@@ -38,12 +38,14 @@ func ReadComments(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	ID, err := strconv.ParseUint(vars["ID"], 10, 32)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	var comments []models.Comment
 	err2 := db.Where("article_id = ?", ID).Find(&comments)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	json.NewEncoder(w).Encode(comments)
 }
@@ -58,24 +60,28 @@ func CreateComment(w http.ResponseWriter, r *http.Request) {
 	userID, err := strconv.ParseUint(r.FormValue("userID"), 10, 32)
 	articleID, err := strconv.ParseUint(r.FormValue("articleID"), 10, 32)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	var user models.User
 	err2 := db.First(&user, &userID)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	var article models.Article
 	err3 := db.First(&article, &articleID)
 	if err3 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	newComment := &models.Comment{Content: content, Article: article, User: user}
 
 	err4 := db.Create(&newComment)
 	if err4 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(newComment)
@@ -92,7 +98,8 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
 	var comment models.Comment
 	err := db.Where("id = ?", ID).Find(&comment)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	db.Delete(&comment)
 }
@@ -109,14 +116,16 @@ func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	var comment models.Comment
 	err := db.Where("id = ?", ID).Find(&comment)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	comment.Content = content
 
 	err2 := db.Save(&comment)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(comment)

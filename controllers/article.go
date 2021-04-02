@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -21,7 +20,8 @@ func AllArticles(w http.ResponseWriter, r *http.Request) {
 	var articles []models.Article
 	err := db.Find(&articles)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(articles)
@@ -36,12 +36,14 @@ func AllArticlesFromUser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	ID, err := strconv.ParseUint(vars["ID"], 10, 32)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	var articles []models.Article
 	err2 := db.Where("user_id = ?", ID).Find(&articles)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(articles)
@@ -58,7 +60,8 @@ func ReadArticle(w http.ResponseWriter, r *http.Request) {
 	var article models.Article
 	err := db.Where("id = ?", ID).Find(&article)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(article)
@@ -74,18 +77,21 @@ func CreateArticle(w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("content")
 	userID, err := strconv.ParseUint(r.FormValue("userID"), 10, 32)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	var user models.User
 	err2 := db.First(&user, &userID)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	newArticle := &models.Article{Title: title, Content: content, User: user}
 
 	err3 := db.Create(&newArticle)
 	if err3 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(newArticle)
@@ -102,7 +108,8 @@ func DeleteArticle(w http.ResponseWriter, r *http.Request) {
 	var article models.Article
 	err := db.Where("id = ?", ID).Find(&article)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	db.Delete(&article)
 }
@@ -120,7 +127,8 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 	var article models.Article
 	err := db.Where("id = ?", ID).Find(&article)
 	if err != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	article.Title = title
@@ -128,7 +136,8 @@ func UpdateArticle(w http.ResponseWriter, r *http.Request) {
 
 	err2 := db.Save(&article)
 	if err2 != nil {
-		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(article)
