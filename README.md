@@ -69,14 +69,15 @@ These instructions will get you a copy of the project up and running on your loc
 Before installing, [download and install Golang](https://golang.org/dl/). go1.15.8 or higher is required.
 
 ## Installation
-```golang
-
+First, create the simplest local database
+```
+mysql -u root
+create database flamingo
 ```
 
 ## Quick Start
-First, do this.
-```golang
-
+```
+go run .
 ```
 Congratulations.
 
