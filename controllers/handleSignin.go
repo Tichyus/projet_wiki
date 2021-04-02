@@ -2,13 +2,14 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/dgrijalva/jwt-go"
+	"fmt"
 	"net/http"
 	"os"
-	"time"
 	"projet_wiki/models"
-)
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
+)
 
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var jwtKey = []byte(os.Getenv("JWT_KEY"))
@@ -17,7 +18,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		Username string `json:"username"`
 		jwt.StandardClaims
 	}
-	
+
 	var user models.User
 
 	// Get the JSON body and decode into credentials
@@ -29,6 +30,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// DB check for user
 	if !CheckUserAuthCreds(user.Username, user.Password) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
@@ -50,10 +52,5 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO : LE METTRE EN HEADER
-	http.SetCookie(w, &http.Cookie{
-		Name:    "token",
-		Value:   tokenString,
-		Expires: expirationTime,
-	})
+	w.Header().Set("Authorization", fmt.Sprintf("Bearer %s", tokenString))
 }
