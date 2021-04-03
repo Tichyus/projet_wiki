@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"projet_wiki/database"
 	"projet_wiki/models"
-
+	"projet_wiki/controllers/auth"
 	"github.com/gorilla/mux"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -68,6 +68,15 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	UserAuth, errAuth := auth.GetRequestUser(r)
+	if errAuth != nil {
+		fmt.Println("user not connected")
+		return
+	}
+	if UserAuth.Username != user.Username {
+		fmt.Println("Incorrect account rights ")
+	    return
+	}
 	db.Delete(&user)
 }
 
@@ -87,6 +96,16 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	UserAuth, errAuth := auth.GetRequestUser(r)
+	if errAuth != nil {
+		fmt.Println("user not connected")
+		return
+	}
+	if UserAuth.Username != user.Username {
+		fmt.Println("Incorrect account rights ")
+	    return
+	}
+	
 	user.Username = username
 
 	err2 := db.Save(&user)

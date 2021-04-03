@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-
+	"projet_wiki/controllers/auth"
 	"projet_wiki/database"
 	"projet_wiki/models"
 
@@ -101,6 +101,26 @@ func DeleteComment(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
+	UserAuth, errAuth := auth.GetRequestUser(r)
+	if errAuth != nil {
+		fmt.Println("user not connected")
+		return
+	}
+
+	UserId := comment.UserID
+	var user models.User
+	db.Where("id = ?", UserId).Find(&user)
+	
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if UserAuth.Username != user.Username {
+		fmt.Println("Incorrect account rights ")
+	    return
+	}
+
 	db.Delete(&comment)
 }
 
@@ -118,6 +138,25 @@ func UpdateComment(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
+	}
+
+	UserAuth, errAuth := auth.GetRequestUser(r)
+	if errAuth != nil {
+		fmt.Println("user not connected")
+		return
+	}
+
+	UserId := comment.UserID
+	var user models.User
+	db.Where("id = ?", UserId).Find(&user)
+	
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if UserAuth.Username != user.Username {
+		fmt.Println("Incorrect account rights ")
+	    return
 	}
 
 	comment.Content = content
